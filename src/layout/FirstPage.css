@@ -1,0 +1,20 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+header {
+  padding: 15px 0;
+  font-size: 26px;
+  font-weight: 400px;
+  background-image: var(--header-bg);
+  box-shadow: 3px;
+}
+a.active {
+  color: aqua;
+}
+.navlist {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
