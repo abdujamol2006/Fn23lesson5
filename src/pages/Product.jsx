@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 function Product() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+
   // Use 'islands' instead of 'trips'
-  useEffect(() => {
-    fetch("  https://dummyjson.com/product/" + id)
-      .then((data) => data.json())
-      .then((product) => {
-        setProduct(product); // Access the 'islands' property
-      });
-  }, []);
+  const {
+    data: product,
+    error,
+    isPending,
+  } = useFetch(" https://dummyjson.com/product/" + id);
   return (
-    <div>
+    <div className="container">
+      {error && (
+        <div>
+          <h3>{error}</h3>
+        </div>
+      )}
+      {isPending && (
+        <div className="mb-10">
+          <h3>Loading...</h3>
+        </div>
+      )}
       {product && (
         <div className="container">
           <Link to="/">

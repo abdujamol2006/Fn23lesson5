@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./home.css";
 import { Link } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
 
 function Home() {
-  const [products, setProducts] = useState(null);
   // Use 'islands' instead of 'trips'
-  useEffect(() => {
-    fetch("  https://dummyjson.com/product")
-      .then((data) => data.json())
-      .then((products) => {
-        setProducts(products); // Access the 'islands' property
-      });
-  }, []);
+  const {
+    data: products,
+    error,
+    isPending,
+  } = useFetch(" https://dummyjson.com/product");
 
   return (
-    <div>
+    <div className="container">
+      {error && (
+        <div>
+          <h3>{error}</h3>
+        </div>
+      )}
+      {isPending && (
+        <div className="mb-10">
+          <h3>Loading...</h3>
+        </div>
+      )}
       <ul className="cardlist">
         {products &&
           products.products.map((product) => {
